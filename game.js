@@ -11,76 +11,80 @@ window.onload = function () {
 
     // Adicionando contandor
 
-    function counter(){
+    function count() {
         ctx.fillStyle = "yellow"
         ctx.font = "700 20px Arial";
         ctx.textAling = "left";
-        ctx.fillText(`Pontos: ${points}`, pontx, ponty);
+        ctx.fillText(`Pontos: ${counter.points}`, counter.pontx, counter.ponty);
     }
 
-    const vel = 1;
+    // Cobra
+    const snake = {
+        vel: 1,
+        velx: 0,
+        vely: 0,
+        px: 10,
+        py: 15,
+    }
 
-    var pontx = 10;
-    var ponty = 25;
-    var points = 0;
+    // Contador
+    const counter = {
+        pontx : 10,
+        ponty : 25,
+        points : 0,
+    }
 
-    var vx = 0;
-    var vy = 0;
+    let qp = 20;
+    let tp = 20;
 
-    var px = 10;
-    var py = 15;
-
-    var tp = 20;
-    var qp = 20;
-
-    var ax = 10;
-    var ay = 10;
+    let ax = 10;
+    let ay = 10;
 
     var trail = [];
     tail = 5;
 
     function game() {
 
-        px += vx;
-        py += vy;
+        snake.px += snake.velx;
+        snake.py += snake.vely;
 
-        if (px < 0) {
-            px = qp - 1;
+        if (snake.px < 0) {
+            snake.px = qp - 1;
         }
 
-        if (px > qp - 1) {
-            px = 0;
+        if (snake.px > qp - 1) {
+            snake.px = 0;
         }
 
-        if (py < 0) {
-            py = qp - 1;
+        if (snake.py < 0) {
+            snake.py = qp - 1;
         }
 
-        if (py > qp - 1) {
-            py = 0;
+        if (snake.py > qp - 1) {
+            snake.py = 0;
         }
 
         ctx.fillStyle = "black";
         ctx.fillRect(0, 0, stage.width, stage.height);
 
         ctx.fillStyle = "red";
-        ctx.fillRect(ax*tp, ay*tp, tp, tp);
-        
+        ctx.fillRect(ax * tp, ay * tp, tp, tp);
+
         for (let i = 0; i < trail.length; i++) {
             ctx.fillStyle = "blue";
             ctx.fillRect(trail[i].x * tp, trail[i].y * tp, tp, tp);
-            counter();
+            count();
 
-            if (trail[i].x == px && trail[i].y == py) {
-                vx = vy = 0;
+            if (trail[i].x == snake.px && trail[i].y == snake.py) {
+                snake.velx = snake.vely = 0;
                 tail = 5;
             }
-        
+
         }
 
         trail.push({
-            x: px,
-            y: py
+            x: snake.px,
+            y: snake.py
         });
 
         while (trail.length > tail) {
@@ -88,9 +92,9 @@ window.onload = function () {
             trail.shift();
         }
 
-        if (ax == px && ay == py) {
+        if (ax == snake.px && ay == snake.py) {
             tail++;
-            points++;
+            counter.points++;
 
             // Reposicionando a maça
             ax = Math.floor(Math.random() * qp);
@@ -103,21 +107,21 @@ window.onload = function () {
 
         switch (event.keyCode) {
             case 37: // left
-                vx = -vel;
-                vy = 0;
+                snake.velx = -snake.vel;
+                snake.vely = 0;
                 break;
             case 38: // up
-                vx = 0;
-                vy = -vel;
+                snake.velx = 0;
+                snake.vely = -snake.vel;
                 break;
             case 39: // right
-                vx = vel;
-                vy = 0;
+                snake.velx = snake.vel;
+                snake.vely = 0;
                 break;
 
             case 40: // down
-                vx = 0;
-                vy = vel;
+                snake.velx = 0;
+                snake.vely = snake.vel;
                 break;
             default:
                 break;
