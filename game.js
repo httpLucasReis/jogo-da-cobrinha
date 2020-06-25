@@ -7,9 +7,22 @@ window.onload = function () {
     document.addEventListener("keydown", keyPress);
 
     // A cada 80 ms a função game é chamada
-    setInterval(game, 80);
+    setInterval(game, 60);
+
+    // Adicionando contandor
+
+    function counter(){
+        ctx.fillStyle = "yellow"
+        ctx.font = "700 20px Arial";
+        ctx.textAling = "left";
+        ctx.fillText(`Pontos: ${points}`, pontx, ponty);
+    }
 
     const vel = 1;
+
+    var pontx = 10;
+    var ponty = 25;
+    var points = 0;
 
     var vx = 0;
     var vy = 0;
@@ -27,8 +40,6 @@ window.onload = function () {
     tail = 5;
 
     function game() {
-        console.log(`x:${px} y:${py}`)
-
 
         px += vx;
         py += vy;
@@ -54,12 +65,11 @@ window.onload = function () {
 
         ctx.fillStyle = "red";
         ctx.fillRect(ax*tp, ay*tp, tp, tp);
-
-        ctx.fillStyle = "blue";
         
         for (let i = 0; i < trail.length; i++) {
-            console.log(`trail x:${trail[i].x} trail y:${trail[i].y}`)
+            ctx.fillStyle = "blue";
             ctx.fillRect(trail[i].x * tp, trail[i].y * tp, tp, tp);
+            counter();
 
             if (trail[i].x == px && trail[i].y == py) {
                 vx = vy = 0;
@@ -80,6 +90,7 @@ window.onload = function () {
 
         if (ax == px && ay == py) {
             tail++;
+            points++;
 
             // Reposicionando a maça
             ax = Math.floor(Math.random() * qp);
