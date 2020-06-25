@@ -7,12 +7,14 @@ window.onload = function () {
     document.addEventListener("keydown", keyPress);
 
     // A cada 80 ms a função game é chamada
-    setInterval(game, 60);
+    const timeRender = setInterval(game, 60);
+    
+    timeRender;
 
     // Adicionando contandor
 
     function count() {
-        ctx.fillStyle = "yellow"
+        ctx.fillStyle = "#4CE187"
         ctx.font = "700 20px Arial";
         ctx.textAling = "left";
         ctx.fillText(`Pontos: ${counter.points}`, counter.pontx, counter.ponty);
@@ -75,13 +77,16 @@ window.onload = function () {
         ctx.fillRect(ax * tp, ay * tp, tp, tp);
 
         for (let i = 0; i < trail.length; i++) {
-            ctx.fillStyle = "blue";
+            ctx.fillStyle = "#2F8A53";
             ctx.fillRect(trail[i].x * tp, trail[i].y * tp, tp, tp);
             count();
 
+
+            // Bateu no próprio rabo
             if (trail[i].x == snake.px && trail[i].y == snake.py) {
                 snake.velx = snake.vely = 0;
                 tail = 5;
+                counter.points = 0;
             }
 
         }
@@ -96,6 +101,7 @@ window.onload = function () {
             trail.shift();
         }
 
+        // Comeu
         if (ax == snake.px && ay == snake.py) {
             tail++;
             counter.points++;
