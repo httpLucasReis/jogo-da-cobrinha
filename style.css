@@ -1,0 +1,35 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+
+    font-family: 'Roboto', sans-serif;
+}
+
+ body {
+    height: 100%;
+    width: 400px;
+    
+    background-color: #ECF3C2;
+    
+    margin: 0 auto;
+}
+
+
+#content {
+    display: flex;
+    align-content: center;
+    flex-direction: column;
+    
+    text-align: center;
+
+    color: #3e9913;
+}
+
+#content header {
+    margin: 20px 0px 20px 0px;
+}
+
+#content footer {
+    margin-top: 20px;
+}

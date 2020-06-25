@@ -34,12 +34,16 @@ window.onload = function () {
         points : 0,
     }
 
+    // Quantidade e tamanho das peças
     let qp = 20;
     let tp = 20;
 
+    
+    // Posição inicial da fruta
     let ax = 10;
     let ay = 10;
 
+    // Rastro e Rabo
     var trail = [];
     tail = 5;
 
